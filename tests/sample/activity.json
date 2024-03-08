@@ -1,0 +1,9 @@
+{
+    "name": "Sample",
+    "description": "Test para probar el funcionamiento del organizador de actividades",
+    "difficulty": "medium",
+    "author": {
+        "name": "John Doe",
+        "email": "jdoe@nasa.com"
+    }
+}
