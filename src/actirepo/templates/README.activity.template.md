@@ -1,6 +1,6 @@
 ---
 title: {{ activity.name }}
-author: {{ activity.author.name }} ({{ activity.author.email }})
+{% if activity.author %}author: {{ activity.author.name }} ({{ activity.author.email }}){% endif %}
 ---
 
 # {{ activity.name }}
@@ -14,6 +14,8 @@ author: {{ activity.author.name }} ({{ activity.author.email }})
 {% else %}
 ![Dificultad](https://img.shields.io/badge/Desconocida-gray)
 {% endif %}
+
+{%for tag in activity.tags %}![{{tag}}](https://img.shields.io/badge/{{tag}}-cyan) :: {% endfor %}
 
 {{ activity.description }}
 

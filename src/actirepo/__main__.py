@@ -30,7 +30,7 @@ def create_activity(directory=".", recursive=True):
 
 def create_readmes(directory, recursive=True, force=False):
     try:
-        activity.create_readmes(directory, recursive, force)
+        repo.create_readmes(directory, recursive, force)
     except Exception as e:
         traceback.print_exc(e)
         print(f"Error: {e}", file=sys.stderr)

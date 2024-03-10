@@ -1,7 +1,7 @@
 import os
 import json
 
-from actirepo.activity import is_activity, read_activity
+from actirepo.activity import is_activity, read_activity, create_readme
 
 REPO_FILE = 'repo.json'
 
@@ -17,6 +17,16 @@ def list_activities(repo_path="."):
             metadata = read_activity(root)
             activities.append(metadata)
     return activities
+
+# create README.md files for all activities in path
+def create_readmes(path, recursive, force):
+    if is_activity(path):
+        activity = read_activity(path)
+        create_readme(activity, force)
+    for dir in os.listdir(path):
+        subdir = os.path.join(path, dir)
+        if os.path.isdir(subdir):
+            create_readmes(subdir, recursive, force)
 
 def create_index(repo_path):
     # check if path exsists

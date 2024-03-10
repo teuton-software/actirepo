@@ -1,4 +1,3 @@
-import sys
 import contextlib
 import os
 import tempfile
@@ -27,5 +26,8 @@ def htmlsize(html):
     size = im.size
     im.close()
     os.remove(file)
-    return size
+    return {
+        "width": size[0],
+        "height": size[1]
+    }
 
