@@ -15,7 +15,7 @@ title: {{ activity.name }}
 ![Dificultad](https://img.shields.io/badge/Desconocida-gray)
 {% endif %}
 
-{%for tag in activity.tags %}![{{tag}}](https://img.shields.io/badge/{{tag}}-cyan) :: {% endfor %}
+{%for tag in activity.tags %}![{{tag}}](https://img.shields.io/badge/{{tag}}-black) :: {% endfor %}
 
 {{ activity.description }}
 

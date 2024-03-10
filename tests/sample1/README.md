@@ -9,7 +9,7 @@ author: John Doe (jdoe@nasa.com)
 ![Dificultad](https://img.shields.io/badge/Dificultad-Media-yellow)
 
 
-![test](https://img.shields.io/badge/test-cyan) :: ![sample](https://img.shields.io/badge/sample-cyan) :: ![actirepo](https://img.shields.io/badge/actirepo-cyan) :: 
+![test](https://img.shields.io/badge/test-black) :: ![sample](https://img.shields.io/badge/sample-black) :: ![actirepo](https://img.shields.io/badge/actirepo-black) :: 
 
 Test para probar el funcionamiento del organizador de actividades incluyendo activity.json
 
