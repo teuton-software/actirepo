@@ -3,6 +3,7 @@
     "description": "Test para probar el funcionamiento del organizador de actividades incluyendo activity.json",
     "difficulty": "medium",
     "tags": [ "test", "sample", "actirepo" ],
+    "category": [ "test", "prueba" ],
     "author": {
         "name": "John Doe",
         "email": "jdoe@nasa.com"

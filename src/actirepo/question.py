@@ -8,12 +8,11 @@ from actirepo.__init__ import __icons_url__, __download_url__
 from actirepo.url_utils import encode
 from actirepo.image_utils import html2png, htmlsize
 from actirepo.file_utils import slugify
-from actirepo.format_utils import format_bytes
+from actirepo.console import format_bytes
 
 from jinja2 import Environment, FileSystemLoader
 from bs4 import BeautifulSoup
 from PIL import Image
-from pprint import pprint
 
 def _get_mimetype(file):
     """
@@ -157,7 +156,7 @@ def render_question(question, destination_dir, save_html = False):
                             "no": int(drag.find('no').text),
                             "text": drag.find('text').text
                         } for drag in question.findall('drag')
-                    ],
+                    ],              
                     "background": f"data:{_get_mimetype(background_file)};{background_file.get('encoding')},{background_file.text}",
                 }
             )
@@ -222,7 +221,7 @@ def render_question(question, destination_dir, save_html = False):
                     "max_files": int(question.find('attachments').text),
                     "file_types": question.find('filetypeslist').text.split(',') if not question.find('filetypeslist').text is None else []
                 }
-            )        
+            )
         case _:
             return
         

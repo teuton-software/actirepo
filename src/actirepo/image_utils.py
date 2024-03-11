@@ -10,7 +10,7 @@ def html2png(html, destination_dir, img_file):
     hti.output_path = destination_dir
     with open(os.devnull, 'w') as devnull:
         with contextlib.redirect_stdout(devnull):
-            hti.screenshot(html_str=html, save_as=img_file)
+                hti.screenshot(html_str=html, save_as=img_file)
     img_file = os.path.join(destination_dir, img_file)
     im = Image.open(img_file)
     im = im.crop(im.getbbox())

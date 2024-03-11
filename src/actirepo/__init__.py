@@ -28,7 +28,8 @@ except Exception as e:
     }
 
 # init global variables
-__version__ = "0.0.1"
+__module__ = 'actirepo'
+__version__ = '0.0.1'
 __raw_url__ = repo['raw_url']
 __download_url__ = repo['download_url']
 __pages_url__ = repo['pages_url']

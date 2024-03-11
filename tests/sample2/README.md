@@ -9,8 +9,6 @@ title: Sample2
 ![Dificultad](https://img.shields.io/badge/Desconocida-gray)
 
 
-
-
 Actividad sin descripción
 
 ## Contenido

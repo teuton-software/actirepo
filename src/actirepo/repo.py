@@ -14,7 +14,7 @@ def list_activities(repo_path="."):
         # check if is an activity
         if is_activity(root):
             # get metadata
-            metadata = read_activity(root)
+            metadata = read_activity(root, True)            
             activities.append(metadata)
     return activities
 
@@ -28,7 +28,7 @@ def create_readmes(path, recursive, force):
         if os.path.isdir(subdir):
             create_readmes(subdir, recursive, force)
 
-def create_index(repo_path):
+def create_index(repo_path="."):
     # check if path exsists
     if not os.path.isdir(repo_path):
         raise Exception(f'Error: {repo_path} no es un directorio')    
@@ -47,6 +47,25 @@ def create_index(repo_path):
             }
             acitivies_list.append(activity)
     print(acitivies_list)
+
+def create_repo(repo_path=""):
+    # check if path exsists
+    if not os.path.isdir(repo_path):
+        raise Exception(f'Error: {repo_path} no es un directorio')
+    # get full path to activity descriptor
+    repo_file = os.path.join(repo_path, REPO_FILE)
+    # check if repo file exists
+    if os.path.isfile(repo_file):
+        raise Exception(f'Error: {repo_file} ya existe')
+    # get all activities in repo
+    activities = list_activities(repo_path)
+    # create repo descriptor
+    repo = {
+        "activities": activities
+    }
+    # write repo descriptor
+    with open(repo_file, 'w') as json_file:
+        json.dump(repo, json_file, indent=4)
 
 # read repo metadata
 def read_repo(repo_path):

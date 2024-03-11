@@ -9,7 +9,10 @@ from actirepo.__init__ import __icons_url__, __download_url__
 from actirepo.question import render_question
 from actirepo.url_utils import normalize
 from actirepo.file_utils import is_newer_than, anchorify
-from actirepo.format_utils import title
+from actirepo.console import title, input_string, input_list
+
+# default limit
+LIMIT = 9999
 
 # get module path
 MODULE_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -38,6 +41,9 @@ SUPPORTED_TYPES = {
 
 # anchorified question types
 ANCHORIFIED_TYPES = { key : anchorify(value) for key, value in SUPPORTED_TYPES.items() }
+
+# supported difficulties
+DIFFICULTIES = [ 'easy', 'medium', 'hard' ]
 
 def _path_to_category(path):
     """
@@ -125,6 +131,17 @@ def _generate_images(activity, force = True):
         # add images to questions file  
         questions_file['images'] = images
 
+def has_quiz_files(activity_path):
+    """
+    Check if activity has quiz files
+    - activity_path: path to activity
+    - returns: True if activity has quiz files, False otherwise
+    """
+    for file in os.listdir(activity_path):
+        if is_quiz_file(os.path.join(activity_path, file)):
+            return True
+    return False
+
 def is_quiz_file(questions_file):
     """
     Check if a file is a quiz file
@@ -135,9 +152,12 @@ def is_quiz_file(questions_file):
     if not questions_file.endswith('.xml'):
         return False
     # get full path to questions file and parse xml
-    tree = ET.parse(questions_file)
-    # check if root is "quiz" tag 
-    return tree.getroot().tag == 'quiz'
+    try:
+        tree = ET.parse(questions_file)
+        # check if root is "quiz" tag 
+        return tree.getroot().tag == 'quiz'
+    except:
+        return False
 
 def is_activity(path):
     """
@@ -157,7 +177,7 @@ def is_activity(path):
                     return True
     return False
 
-def read_activity(activity_path):
+def read_activity(activity_path, full = False):
     """
     Read activity descriptor
     - activity_path: path to activity
@@ -182,7 +202,7 @@ def read_activity(activity_path):
     activity['path'] = os.path.normpath(activity_path)
     # add description to activity descriptor if it is not present
     if not 'description' in activity:
-        activity['description'] = 'Actividad sin descripción'
+        activity['description'] = ''
     # add difficulty to activity descriptor if it is not present
     if not 'difficulty' in activity:
         activity['difficulty'] = 'unknown'
@@ -194,7 +214,11 @@ def read_activity(activity_path):
         activity['files'] = [ file for file in os.listdir(activity_path) if file.endswith('.xml') and is_quiz_file(os.path.join(activity_path, file)) ]
     # if there is no limit in activity descriptor, set it to max int
     if not 'limit' in activity:
-        activity['limit'] = 9999
+        activity['limit'] = LIMIT
+    # if full is true, add questions to activity descriptor
+    if full:
+        activity['questions'] = _get_all_questions(activity)
+        activity['total'] = sum([ file['total'] for file in activity['questions'] ])  
     return activity
 
 # create README.md file for activity (including some questions rendered as images)
@@ -211,15 +235,16 @@ def create_readme(activity, force = False):
     # avoid creating README.md if it is not necessary
     if not force:
         # check if current README.md is newer than activity.json and question files, and skip if it is
-        checked_files = [ ACTIVITY_FILE ].extend(activity['files'])
+        activity_files = [ ACTIVITY_FILE ]
+        activity_files.extend(activity['files'])
         readme_is_old = True
-        for file in checked_files:
+        for file in activity_files:
             file = os.path.join(activity_path, file)
             if is_newer_than(file, readme_file):
                 readme_is_old = False
                 break
         if readme_is_old:
-            print(f'Ignorando actividad "{activity_path}". README.md es más reciente que {ACTIVITY_FILE} y que los archivos de preguntas {activity["questions"]}')
+            print(f'Ignorando actividad "{activity_path}". README.md es más reciente que {ACTIVITY_FILE} y que los archivos de preguntas {activity["files"]}')
             return
     # print message
     title(f'Creando README.md para actividad en {activity_path}...')
@@ -236,3 +261,35 @@ def create_readme(activity, force = False):
     print("generando README.md: ", readme_file)
     with open(readme_file, 'w') as outfile:
         outfile.write(readme)
+
+def create_activity(path, force = False):
+    """
+    Create activity descriptor
+    - path: path to activity
+    - force: if true, overwrite existing activity descriptor
+    """
+    activity_file = os.path.join(path, ACTIVITY_FILE)
+    # check if activity descriptor exists and force is false
+    if os.path.isfile(activity_file) and not force:
+        raise Exception(f'{path} ya es una actividad. Use --force para sobreescribir')
+    # if there is activity descriptor, reads it
+    default_activity = read_activity(path)        
+    # check if there are xml files
+    if not has_quiz_files(path):
+        raise Exception(f'No hay archivos de preguntas en {path}')
+    # create activity descriptor
+    activity = {
+        'name': input_string('Nombre', default_activity['name']),
+        'description': input_string('Descripción', default_activity['description']),
+        'category': input_list('Categoría', default_activity['category']),
+        'difficulty': input_string(f'Dificultad {DIFFICULTIES}', default_activity['difficulty']),
+        'tags': input_list('Tags', default_activity['tags']),
+        'author': {
+            'name': input_string('Autor name', default_activity['author']['name'] if default_activity['author'] else os.environ.get('USER', os.environ.get('USERNAME'))),
+            'email': input_string('Autor email', default_activity['author']['email'] if default_activity['author'] else '')
+        },
+        'limit': input_string('Límite de preguntas de cada tipo a mostrar en el README', default_activity['limit'])
+    }
+    # write activity descriptor to json file
+    with open(activity_file, 'w') as outfile:
+        json.dump(activity, outfile, indent=4)
