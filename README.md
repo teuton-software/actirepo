@@ -25,32 +25,44 @@ Ejemplo de `activity.json`:
 
 ## ¿Cómo lo uso?
 
-Debes ubicarte en el directorio raíz del repositorio de preguntas.
-
-### Instalar las dependencias
-
-La primera vez es necesario instalar las dependencias:
+### Instalar el paquete `actirepo`
 
 ```bash
-pip install -r requirements.txt
+pip install actirepo
 ```
+
+> [!CAUTION]
+> 
+> Aún no se ha publicado en [PyPI](https://pypi.org/).
 
 ### Mostrar la ayuda
 
 ```bash
-$ python .activities-organizer --help
-usage: python .activities-organizer [-h] [-v] [-l] [-c [RUTA]] [--readme RUTA] [-r]
+$ actirepo --help
+Uso: actirepo (-h | -v | -l [RUTA] | -i FICHERO | -R RUTA | -C [RUTA] | -c [RUTA]) [-r] [-f] [-H]
 
 Organizador de actividades
 
-options:
-  -h, --help            show this help message and exit
+Comandos:
+  -h, --help            Muestra esta ayuda y termina
   -v, --version         Mostrar versión
-  -l, --list            Listar actividades
-  -c [RUTA], --create [RUTA]
+  -l [RUTA], --list [RUTA]
+                        Listar actividades de forma recursiva en el directorio especificado (o directorio actual si no se proporciona)
+  -i FICHERO, --images FICHERO
+                        Genera imágenes de las preguntas de una actividad
+  -R RUTA, --readme RUTA
+                        Crear README.md para repositorio y/o actividad en el directorio especificado. Se puede combinar con "-r".
+  -C [RUTA], --create-activity [RUTA]
                         Crear los metadatos de la actividad en el directorio especificado (o directorio actual si no se proporciona)
-  --readme RUTA         Crear README.md para actividad en el directorio especificado
+  -c [RUTA], --create-repo [RUTA]
+                        Crear los metadatos del repositorio en el directorio especificado (o directorio actual si no se proporciona)
+
+Opciones:
   -r, --recursive       Buscar actividades recursivamente en subdirectorios. Se puede combinar con --readme y --create
+  -f, --force           Forzar la creación de README.md aunque no sea necesario
+  -H, --html            Genera también el HTML de las preguntas al generar las imágenes
+
+¡Espero que te sea útil!
 ```
 
 ### Listar las actividades del repositorio
@@ -62,7 +74,7 @@ Muestra un listado de todas las actividades disponibles en el repositorio, inclu
 Ejecuta el siguiente comando para generar el fichero `README.md` en el directorio indicado:
 
 ```bash
-python [-X utf8] .activity-organizer [--recursive] --readme RUTA
+actirepo [--recursive] --readme RUTA
 ```
 
 Si se especifica la opción `--recursive`, la búsqueda de actividades será recursiva a partir de la `RUTA` indicada, por lo que si se indica el directorio raíz del repo, se generarán los ficheros README de todas las actividades. 
@@ -76,7 +88,7 @@ Si el fichero README existe y es anterior a los cambios realizados en la activid
 Es posible generar un fichero de metadatos `activity.json` para las actividades, que luego sólo será necesario rellenar:
 
 ```bash
-python .activity-organizer [--recursive] -c [RUTA] 
+actirepo [--recursive] -c [RUTA] 
 ```
 
 Si no se especifica la `RUTA`, el fichero se genera en el directorio actual.
@@ -100,12 +112,43 @@ Suponiendo que el directorio de la actividad se llame `cableado` y que exista el
 }
 ```
 
+> [!TIP]
+> 
+> `questions` es opcional; si no lo indicamos buscará automáticamente todos los ficheros XML de preguntas del directorio.
+
 ## Información relacionada
 
 ### Plantillas
 
-Las plantillas utilizadas para generar el README y el HTML de las preguntas para luego renderizarlas en PNG se encuentran en el directorio `templates`.
+Las plantillas utilizadas para generar los ficheros README y los HTML de las preguntas (para luego renderizarlas en PNG) se encuentran en el directorio `src/actirepo/templates`.
 
 #### Vista previa de las preguntas en HTML
 
-El código HTML de la vista previa de las preguntas se extrajo de Moodle utilizando [PageRip](https://chromewebstore.google.com/detail/pagerip-html-+-css-extrac/bkahkocegdkgicmmfpkoeipjmjaeohfn), una extensión de Google Chrome que permite extraer fragmentos de páginas HTML incluyendo el CSS en línea.
+El código HTML de la vista previa de las preguntas, utilizado para crear las plantillas, se extrajo de Moodle utilizando [PageRip](https://chromewebstore.google.com/detail/pagerip-html-+-css-extrac/bkahkocegdkgicmmfpkoeipjmjaeohfn), una extensión de Google Chrome que permite extraer fragmentos de páginas HTML incluyendo el CSS en línea.
+
+## Para desarrolladores
+
+Clonar el repositorio y entrar en el directorio:
+
+```bash
+git clone https://github.com/teuton-software/actirepo
+cd actirepo
+```
+
+Crear un entorno virtual:
+
+```bash
+python -m venv venv
+```
+
+Instalar el paquete en modo de edición, de modo que se crearán los scripts del paquete y se instalarán las dependencias en el entorno virtual:
+
+```bash
+pip install -e .
+```
+
+¡Y a programar!
+
+```bash
+code .
+```

@@ -1,3 +1,12 @@
+"""
+Activities module
+- create_activity: create activity descriptor
+- create_readme: create README.md file for activity (including some questions rendered as images)
+- has_quiz_files: check if activity has quiz files
+- is_activity: check if a path is an activity (is a directory and has an activity descriptor or quiz files)
+- read_activity: read activity descriptor
+"""
+
 import os
 import shutil
 import json
@@ -161,21 +170,11 @@ def is_quiz_file(questions_file):
 
 def is_activity(path):
     """
-    Check if a path is an activity
+    Check if a path is an activity (is a directory and has an activity descriptor or quiz files)
     - path: path to activity
     - returns: True if path is an activity, False otherwise
     """
-    # check if path is a directory
-    if os.path.isdir(path):
-        # check if activity file exists
-        if os.path.isfile(os.path.join(path, ACTIVITY_FILE)):
-            return True
-        # check if there are xml files in directory
-        else:            
-            for file in os.listdir(path):
-                if is_quiz_file(os.path.join(path, file)):
-                    return True
-    return False
+    return os.path.isdir(path) and (os.path.isfile(os.path.join(path, ACTIVITY_FILE)) or has_quiz_files(path))
 
 def read_activity(activity_path, full = False):
     """
@@ -222,7 +221,7 @@ def read_activity(activity_path, full = False):
     return activity
 
 # create README.md file for activity (including some questions rendered as images)
-def create_readme(activity, force = False):
+def create_readme_activity(activity, force = False):
     """
     Create README.md file for activity (including some questions rendered as images)
     - activity: activity descriptor

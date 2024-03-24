@@ -1,3 +1,10 @@
+"""
+Console utilities
+- format_bytes: Convert bytes to human readable format
+- title: Print title
+- input_string: Input string with default value
+- input_list: Input comma separated list with default value
+"""
 
 def format_bytes(size):
     """

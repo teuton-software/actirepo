@@ -32,9 +32,9 @@ def create_activity(directory=".", force = False):
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)        
 
-def create_readmes(directory, recursive=True, force=False):
+def create_readmes(directory, force=False):
     try:
-        repo.create_readmes(directory, recursive, force)
+        repo.create_readmes(directory, force)
     except Exception as e:
         traceback.print_exc(e)
         print(f"Error: {e}", file=sys.stderr)
@@ -96,7 +96,11 @@ def main():
     elif args.images:
         create_images(args.images, args.html)
     elif args.readme:
-        create_readmes(args.readme, args.recursive, args.force)
+        if args.recursive:
+            create_readme_all_activities(args.readme, args.force)
+        else:
+            cre
+        create_readme_all_activities(args.readme, args.recursive, args.force)
     elif args.create_activity:
         create_activity(args.create_activity, args.force)
     elif args.create_repo:

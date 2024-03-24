@@ -1,11 +1,20 @@
+"""
+Functions for rendering html to images and getting the size of the html
+"""
+
 import contextlib
 import os
 import tempfile
 from html2image import Html2Image
 from PIL import Image
 
-# renderiza un html a una imagen png
 def html2png(html, destination_dir, img_file):
+    """
+    Render html to png image
+    - html: html string
+    - destination_dir: destination directory
+    - img_file: image file name
+    """
     hti = Html2Image()
     hti.output_path = destination_dir
     with open(os.devnull, 'w') as devnull:
@@ -16,8 +25,12 @@ def html2png(html, destination_dir, img_file):
     im = im.crop(im.getbbox())
     im.save(img_file)
 
-# obtiene el tamaño (ancho x alto) del html
 def htmlsize(html):
+    """
+    Get the size of the html
+    - html: html string
+    - return: dictionary with width and height {"width": width, "height": height}
+    """
     tmp = tempfile.mkstemp(suffix='.png')
     os.close(tmp[0])
     file = tmp[1]

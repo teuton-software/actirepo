@@ -1,3 +1,8 @@
+"""
+Questions module
+- render_question: render question as image
+"""
+
 import os
 import xml.etree.ElementTree as ET
 import mimetypes
@@ -243,4 +248,5 @@ def render_question(question, destination_dir, save_html = False):
     
     return image_filename
 
+# initialize mimetypes
 mimetypes.init()
