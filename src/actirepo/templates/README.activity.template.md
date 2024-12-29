@@ -1,18 +1,18 @@
 ---
-title: {{ activity.name }}
-{% if activity.author %}author: {{ activity.author.name }} ({{ activity.author.email }}){% endif %}
+title: {{ activity.name }}{% if activity.metadata.author %}
+author: {{ activity.metadata.author.name }} ({{ activity.metadata.author.email }}){% endif %}
 ---
 
 # {{ activity.name }}
-
-{% if activity.difficulty == 'hard' %}
+{% set difficulty = activity.metadata.difficulty %}
+{% if difficulty == 'hard' %}
 ![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)
-{% elif activity.difficulty == 'medium' %}
+{% elif difficulty == 'medium' %}
 ![Dificultad](https://img.shields.io/badge/Dificultad-Media-yellow)
-{% elif activity.difficulty == 'easy' %}
+{% elif difficulty == 'easy' %}
 ![Dificultad](https://img.shields.io/badge/Dificultad-Baja-green)
 {% else %}
-![Dificultad](https://img.shields.io/badge/Desconocida-gray)
+![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)
 {% endif %}
 
 {{ activity.description }}
@@ -21,23 +21,23 @@ title: {{ activity.name }}
 
 Ficheros de preguntas disponibles en esta actividad:
 
-{% for questions_file in activity.questions %}
-### [{{questions_file.file}}]({{questions_file.url}})
+{% for quiz in activity.quizzes %}
 
+### [{{quiz.filename}}]({{ quiz.filename }})
+
+{% set stats = quiz.get_stats() %}
 |   | Tipo              | Cantidad                   |
 | - | ----------------- | -------------------------- |
-{% for type,questions in questions_file.types.items() %}| ![{{ type }}]({{ icons_url }}/{{ type }}.svg) | [{{ SUPPORTED_TYPES[type] }}](#{{ ANCHORIFIED_TYPES[type] }}) | {{ questions|length }} |
-{% endfor %}|   | **TOTAL**         | {{ questions_file.total }} |
+{% for type,count in stats.types.items() %}| ![{{ type }}]({{ icons_url }}/{{ type }}.svg) | [{{ Quiz.SUPPORTED_QUESTIONS[type]['description'] }}](#{{ Quiz.SUPPORTED_QUESTIONS[type]['description'] | anchorify }}) | {{ count }} |
+{% endfor %}|   | **TOTAL**         | {{ stats.total }} |
 
-{% for type,images in questions_file.images.items() %}
-#### {{SUPPORTED_TYPES[type]}}
-{% if images|length > 0 %}
-{% for i in range(0, [images|length, activity.limit]|min) %}
-![{{images[i]}}](images/{{images[i]}})
+{% for type,questions in quiz.questions.items() %}
+#### {{ Quiz.SUPPORTED_QUESTIONS[type]['description'] }}
+
+{% for question in questions %}
+![{{ question.image_filename }}](images/{{ question.image_filename }})
 {% endfor %}
-{% else %}
-Imágenes aún no disponibles.
-{% endif %}
+
 {% endfor %}
 
 {% endfor %}

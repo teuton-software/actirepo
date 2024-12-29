@@ -10,7 +10,7 @@ import actirepo.activity as activity
 import actirepo.repo as repo
 
 from actirepo.__init__ import __version__, __module__
-from actirepo.dict_utils import trim_all_keys
+from actirepo.utils.dict_utils import trim_all_keys
 
 def list_activities(directory="."):
     activities = repo.list_activities(directory)
@@ -30,11 +30,11 @@ def create_activity(directory=".", force = False):
         activity.create_activity(directory, force)
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)        
+        sys.exit(1)
 
-def create_readmes(directory, force=False):
+def create_readmes(directory, recursive, force):
     try:
-        repo.create_readmes(directory, force)
+        repo.create_readmes(directory, recursive, force)
     except Exception as e:
         traceback.print_exc(e)
         print(f"Error: {e}", file=sys.stderr)
@@ -96,11 +96,7 @@ def main():
     elif args.images:
         create_images(args.images, args.html)
     elif args.readme:
-        if args.recursive:
-            create_readme_all_activities(args.readme, args.force)
-        else:
-            cre
-        create_readme_all_activities(args.readme, args.recursive, args.force)
+        create_readmes(args.readme, args.recursive, args.force)
     elif args.create_activity:
         create_activity(args.create_activity, args.force)
     elif args.create_repo:

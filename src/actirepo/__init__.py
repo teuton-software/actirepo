@@ -1,13 +1,15 @@
 import json
 from importlib import resources
+from pprint import pprint
 
+# check if tomllib is installed
 try:
     import tomllib
 except ModuleNotFoundError:
-    # Third party imports
+    # third party import
     import tomli as tomllib
 
-# Read URL of the Real Python feed from config file
+# read config from file
 _cfg = tomllib.loads(resources.read_text("actirepo", "config.toml"))
 
 # repo descriptor file
@@ -22,15 +24,15 @@ try:
 except Exception as e:
     # valores por defecto
     repo = {
-        "download_url": "https://github.com/<profile>",
-        "raw_url": "https://raw.githubusercontent.com/<profile>",
-        "pages_url": "https://<profile>.github.io"
+        "url_download": "https://github.com/teuton-software",
+        "url_raw": "https://raw.githubusercontent.com/teuton-software",
+        "url_pages": "https://<profile>.github.io"
     }
 
 # init global variables
 __module__ = 'actirepo'
 __version__ = '0.0.1'
-__raw_url__ = repo['raw_url']
-__download_url__ = repo['download_url']
-__pages_url__ = repo['pages_url']
+__raw_url__ = repo['url_raw']
+__download_url__ = repo['url_download']
+__pages_url__ = repo['url_pages']
 __icons_url__ = _cfg["config"]["icons_url"]

@@ -1,45 +1,44 @@
 ---
-title: Sample1
+title: sample1
 author: John Doe (jdoe@nasa.com)
 ---
 
-# Sample1
+# sample1
 
 
-![Dificultad](https://img.shields.io/badge/Dificultad-Media-yellow)
+![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)
 
 
-Test para probar el funcionamiento del organizador de actividades incluyendo activity.json
+
 
 ## Contenido
 
 Ficheros de preguntas disponibles en esta actividad:
 
 
-### [questions.xml](https://github.com/%3Cprofile%3E/tests/sample1/questions.xml)
+
+### [questions.xml](questions.xml)
+
 
 |   | Tipo              | Cantidad                   |
 | - | ----------------- | -------------------------- |
-| ![ddimageortext](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/ddimageortext.svg) | [Arrastrar y soltar sobre una imagen](#arrastrar-y-soltar-sobre-una-imagen) | 1 |
-| ![ddmarker](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/ddmarker.svg) | [Arrastrar y soltar marcadores](#arrastrar-y-soltar-marcadores) | 1 |
+| ![ddimageortext](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/ddimageortext.svg) | [Arrastrar y soltar imagen o texto](#arrastrar-y-soltar-imagen-o-texto) | 1 |
+| ![ddmarker](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/ddmarker.svg) | [Arrastrar y soltar marcador](#arrastrar-y-soltar-marcador) | 1 |
 | ![essay](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/essay.svg) | [Ensayo](#ensayo) | 3 |
-| ![matching](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/matching.svg) | [Emparejamiento](#emparejamiento) | 1 |
-| ![cloze](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/cloze.svg) | [Asociación](#asociación) | 1 |
-| ![multichoice](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/multichoice.svg) | [Opción múltiple](#opción-múltiple) | 2 |
-| ![numerical](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/numerical.svg) | [Numérico](#numérico) | 1 |
+| ![multichoice](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/multichoice.svg) | [SelecciÃ³n mÃºltiple](#selecciÃ³n-mÃºltiple) | 2 |
 | ![shortanswer](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/shortanswer.svg) | [Respuesta corta](#respuesta-corta) | 1 |
 | ![truefalse](https://raw.githubusercontent.com/teuton-software/actirepo/master/icons/truefalse.svg) | [Verdadero/Falso](#verdaderofalso) | 3 |
-|   | **TOTAL**         | 14 |
+|   | **TOTAL**         | 11 |
 
 
-#### Arrastrar y soltar sobre una imagen
+#### Arrastrar y soltar imagen o texto
 
 
 ![arrastrar-y-soltar-sobre-una-imagen_1.png](images/arrastrar-y-soltar-sobre-una-imagen_1.png)
 
 
 
-#### Arrastrar y soltar marcadores
+#### Arrastrar y soltar marcador
 
 
 ![arrastrar-y-soltar-marcadores_1.png](images/arrastrar-y-soltar-marcadores_1.png)
@@ -57,7 +56,7 @@ Ficheros de preguntas disponibles en esta actividad:
 
 
 
-#### Opción múltiple
+#### SelecciÃ³n mÃºltiple
 
 
 ![opcion-multiple-respuesta-multiple_1.png](images/opcion-multiple-respuesta-multiple_1.png)

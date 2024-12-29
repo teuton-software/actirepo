@@ -25,7 +25,7 @@ Ejemplo de `activity.json`:
 
 ## ¿Cómo lo uso?
 
-### Instalar el paquete `actirepo`
+### Instalar `actirepo` desde PyPI
 
 ```bash
 pip install actirepo
@@ -34,6 +34,12 @@ pip install actirepo
 > [!CAUTION]
 > 
 > Aún no se ha publicado en [PyPI](https://pypi.org/).
+
+## Instalar `actirepo` desde GitHub
+
+```bash
+pip install git+https://github.com/teuton-software/actirepo.git#egg=actirepo
+```
 
 ### Mostrar la ayuda
 
@@ -135,10 +141,16 @@ git clone https://github.com/teuton-software/actirepo
 cd actirepo
 ```
 
-Crear un entorno virtual:
+Crear un entorno virtual (si no lo hemos hecho antes):
 
 ```bash
 python -m venv venv
+```
+
+Activar el entorno virtual:
+
+```bash
+venv\Scripts\activate
 ```
 
 Instalar el paquete en modo de edición, de modo que se crearán los scripts del paquete y se instalarán las dependencias en el entorno virtual:

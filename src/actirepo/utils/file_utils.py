@@ -1,6 +1,6 @@
 """
 File utilities.
-- get_valid_filename: Returns a valid filename by removing invalid characters and replacing slashes with underscores.
+- get_available_filename: Get valid filename
 - is_newer_than: Check if file1 is newer than file2
 - slugify: Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated dashes to single dashes. Remove characters that aren't alphanumerics, underscores, or hyphens. Convert to lowercase. Also strip leading and trailing whitespace, dashes, and underscores.
 - anchorify: Creates a valid anchor from a string: Convert to lowercase. Remove characters that aren't alphanumerics, underscores, or hyphens. Convert spaces to hyphens. Also strip leading and trailing whitespace, dashes, and underscores.
@@ -9,22 +9,21 @@ import unicodedata
 import re
 import os
 
-
-def get_valid_filename(name):
+def get_available_filename(path, name):
     """
-    Returns a valid filename by removing invalid characters and replacing slashes with underscores.
-    Args:
-        name (str): The input filename.
-    Returns:
-        str: The valid filename.
-    Raises:
-        Exception: If the resulting filename is empty or contains only dots or double dots.
+    Get the first available filename, searching for a valid and not existing filename by appending an index to the name.
+    - path: path to directory
+    - name: name of the file
+    - return: first available filename
     """
-    s = str(name).strip().replace("/", "_").replace("\\", "_").replace(":", "_").replace("*", "_").replace("?", "_").replace('"', "_").replace("<", "_").replace(">", "_").replace("|", "_").replace(" ", "_").replace("\t", "_").replace("\n", "_").replace("\r", "_").replace("\f", "_").replace("\v", "_").replace("\0", "_").replace("\b", "_").replace("\a", "_").replace("\e", "_")
-    s = re.sub(r"(?u)[^- \w.]", "", s)
-    if s in {"", ".", ".."}:
-        raise Exception(f"Error: {name} is not a valid filename")
-    return s
+    index = 1
+    basename = os.path.splitext(name)[0]
+    extension = os.path.splitext(name)[1][1:] # get extension without dot
+    valid_filename = f'{basename}_{index}.{extension}'
+    while os.path.exists(os.path.join(path, valid_filename)):
+        index += 1
+        valid_filename = f'{basename}_{index}.{extension}'
+    return valid_filename
 
 def is_newer_than(file1, file2):
     """
