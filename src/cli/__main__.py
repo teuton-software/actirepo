@@ -10,8 +10,8 @@ def main():
     #print(quiz.questions)
     #print(quiz.get_stats())
 
-    activity = Activity('tests/sample1')
-    activity.save()
+    activity = Activity('tests/sample2')
+    #activity.save()
     activity.create_readme(force=True)
 
     print(f"Elapsed time: {time.time() - start_time:.2f} s")

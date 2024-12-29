@@ -71,7 +71,7 @@ class Activity(Artifact):
         # add category to activity descriptor if it is not present
         if not 'category' in self.metadata: self.metadata['category'] = Category.path_to_categories(self.path)
         # if there are no files in activity descriptor, get all files in activity path
-        if not 'files' in self.metadata: self.metadata['files'] = self.quizzes
+        if not 'files' in self.metadata: self.metadata['files'] = [ file for file in os.listdir(self.path) if Quiz.is_quiz_file(os.path.join(self.path, file)) ]
         # if there is no limit in activity descriptor, set it to max int
         if not 'limit' in self.metadata: self.metadata['limit'] = Activity.LIMIT
         # if full is true, add questions to activity descriptor
