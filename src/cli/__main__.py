@@ -10,7 +10,7 @@ def main():
     #print(quiz.questions)
     #print(quiz.get_stats())
 
-    activity = Activity('tests/sample2')
+    activity = Activity('tests/sample1')
     #activity.save()
     activity.create_readme(force=True)
 

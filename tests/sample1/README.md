@@ -6,7 +6,7 @@ author: John Doe (jdoe@nasa.com)
 # sample1
 
 
-![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)
+![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)
 
 
 

@@ -1,7 +1,7 @@
 {
     "name": "Sample1",
     "description": "Test para probar el funcionamiento del organizador de actividades incluyendo activity.json",
-    "difficulty": "high",
+    "difficulty": "hard",
     "tags": [
         "test",
         "sample",
