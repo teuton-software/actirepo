@@ -4,24 +4,27 @@ import json
 from jinja2 import Environment, FileSystemLoader
 from pprint import pprint
 
-from actirepo.__init__ import __icons_url__
-from actirepo.utils.file_utils import is_newer_than, anchorify, path_to_capitalized_list
-from actirepo.utils.console import title, input_string, input_list
-from actirepo.artifact import Artifact
-from actirepo.activity import Activity
-from actirepo.moodle.quiz import Quiz
-from actirepo.moodle.stats import Stats
+from .__init__ import __icons_url__
+from .utils.file_utils import is_newer_than, anchorify, path_to_capitalized_list
+from .utils.console import title, input_string, input_list
+from .artifact import Artifact
+from .activity import Activity
+from .moodle.quiz import Quiz
+from .moodle.stats import Stats
 
 class Category(Artifact):
+    """
+    Category class: represents a category of activities
+    """
 
-    # activity README template
+    # category README template
     README_TEMPLATE = 'README.category.template.md'
 
     # metadata filename
     METADATA_FILE = 'category.json'
 
     def __init__(self, path):
-        super().__init__(path, self.METADATA_FILE)
+        super().__init__("category", path, self.METADATA_FILE)
 
     def __find_categories(self):
         """
@@ -89,13 +92,6 @@ class Category(Artifact):
         # add stats to activity descriptor if it is not present
         self.metadata['stats'] = self.get_stats()
         return self.metadata
-    
-    def save(self):
-        """
-        Save activity descriptor
-        """
-        with open(self.descriptor, 'w') as outfile:
-            json.dump(self.metadata, outfile, indent=4)
 
     def get_stats(self):
         """
@@ -109,13 +105,19 @@ class Category(Artifact):
             result += category.get_stats()
         return result
 
-    def create_readme(self):
+    def create_readme(self, recursive = False):
         """
         Create README.md file for category (including all activities in category and subcategories)
-        - force: if true, overwrite existing README.md
+        - recursive: if true, create README.md files recursively
         """
         # print message
-        title(f'Creando README.md para categoría en {self.path}...')
+        title(f'Creating README.md for {self.type} in {self.path}...')
+        # if recursive, create README.md file for subcategories
+        if recursive:
+            for actitivy in self.activities:
+                actitivy.create_readme(True)
+            for subcategory in self.categories:
+                subcategory.create_readme(recursive)
         # load and render template
         env = Environment(loader = FileSystemLoader(self.TEMPLATES_PATH, encoding='utf8'))
         env.filters['anchorify'] = anchorify
@@ -125,30 +127,25 @@ class Category(Artifact):
         template = env.get_template(self.README_TEMPLATE)
         readme = template.render(category = self, icons_url = __icons_url__, Quiz = Quiz)
         # write to file
-        print("generando README.md: ", self.readme_file)
         with open(self.readme_file, 'w', encoding='utf-8') as outfile:
             outfile.write(readme)
 
     @staticmethod    
-    def create(path, force = False):
+    def create(path):
         """
         Create category descriptor
         - path: path to category
-        - force: if true, overwrite existing category descriptor
         """
         descriptor = os.path.join(path, Category.METADATA_FILE)
-        # check if category descriptor exists and force is false
-        if os.path.isfile(descriptor) and not force:
-            raise Exception(f'{path} ya es una categoría. Use --force para sobreescribir')
         # if there is category descriptor, loads it
         default_metadata = Category(path).metadata
         # create category descriptor
         category = {
-            'name': input_string('Nombre', default_metadata['name']),
-            'description': input_string('Descripción', default_metadata['description']),
-            'category': input_list('Categoría', default_metadata['category']),
+            'name': input_string('Name', default_metadata['name']),
+            'description': input_string('Description', default_metadata['description']),
+            'category': input_list('Category', default_metadata['category']),
             'tags': input_list('Tags', default_metadata['tags']),
         }
-        # write activity descriptor to json file
-        with open(descriptor, 'w') as outfile:
+        # write category descriptor to json file
+        with open(descriptor, 'w', encoding = 'utf-8') as outfile:
             json.dump(category, outfile, indent=4)

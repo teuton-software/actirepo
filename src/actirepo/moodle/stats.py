@@ -1,6 +1,8 @@
-from pprint import pprint
 
 class Stats:
+    """
+    Stats class: represents statistics for a quiz    
+    """
 
     def __init__(self):
         self.total = 0

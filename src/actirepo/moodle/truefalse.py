@@ -1,6 +1,9 @@
 from .question import Question
 
 class TrueFalse(Question):
+    """
+    Class to manage true/false questions
+    """
 
     def __init__(self, element):
         super().__init__(element)

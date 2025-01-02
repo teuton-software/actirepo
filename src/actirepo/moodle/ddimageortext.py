@@ -5,6 +5,9 @@ from actirepo.utils.mime_utils import get_mimetype
 from actirepo.utils.image_utils import get_image_size, htmlsize
 
 class DDImageOrText(Question):
+    """
+    Drag and drop question with images or text
+    """
 
     def __init__(self, element):
         super().__init__(element)

@@ -2,6 +2,9 @@ from .question import Question
 from actirepo.utils.console import format_bytes
 
 class Essay(Question):
+    """
+    Class to manage essay questions
+    """
 
     def __init__(self, element):
         super().__init__(element)

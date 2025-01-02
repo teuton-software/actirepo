@@ -3,6 +3,7 @@ from pprint import pprint
 from actirepo.moodle.quiz import Quiz
 from actirepo.activity import Activity
 from actirepo.category import Category
+from actirepo.repo import Repo
 
 def main():
     start_time = time.time()
@@ -17,10 +18,17 @@ def main():
     #activity.create_readme(True)
     #print(activity.get_stats())
 
-    category = Category('tests/category')
-    category.create_readme()
+    #Actitivy.create('tests/category/sample1')
 
-    #Category.create('tests/category', False)
+    #category = Category('tests/category')
+    #category.create_readme()
+
+    #Category.create('tests/category/subcategory')
+
+    repo = Repo('tests')
+    repo.create_readme(True)
+
+    #Repo.create('tests')
 
     print(f"Elapsed time: {time.time() - start_time:.2f} s")
 

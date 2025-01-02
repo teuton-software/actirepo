@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import json
 import os
 
 class Artifact(ABC):
@@ -12,16 +13,16 @@ class Artifact(ABC):
     # load and render template
     TEMPLATES_PATH = os.path.join(MODULE_PATH, 'templates')
 
-    def __init__(self, path, filename) -> None:
-        print(f"Initializing artifact {path}...")
+    def __init__(self, type, path, filename) -> None:
+        print(f"Initializing {type}: {path}...")
         if (not os.path.exists(path)):
             raise FileNotFoundError(f"Path {path} does not exist.")
-        path = os.path.normpath(path)
-        self.path = path
-        self.name = os.path.basename(path)
+        self.type = type
+        self.path = os.path.normpath(path)
+        self.name = os.path.basename(self.path)
         self.filename = filename
-        self.readme_file = os.path.join(path, Artifact.README)
-        self.descriptor = os.path.join(path, filename)
+        self.readme_file = os.path.join(self.path, Artifact.README)
+        self.descriptor = os.path.join(self.path, filename)
         self.metadata = self.load()
 
     def __str__(self) -> str:
@@ -33,15 +34,14 @@ class Artifact(ABC):
         return os.path.exists(self.path)
 
     @abstractmethod
-    def create_readme(self) -> str:
-        pass
-    
-    @abstractmethod
     def load(self) -> dict:
         pass
 
-    @abstractmethod
-    def save(self) -> None:
-        pass
+    def save(self):
+        """
+        Save activity descriptor
+        """
+        with open(self.descriptor, 'w') as outfile:
+            json.dump(self.metadata, outfile, indent=4)
 
 

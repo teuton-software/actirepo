@@ -2,6 +2,9 @@
 from .question import Question
 
 class MultiChoice(Question):
+    """
+    Class to manage multichoice questions
+    """
 
     def __init__(self, element):
         super().__init__(element)

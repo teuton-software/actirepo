@@ -13,6 +13,9 @@ from actirepo.utils.image_utils import html2png
 TEMPLATES_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates')
 
 class Question(ABC):
+    """
+    Question class
+    """
 
     def __init__(self, element):
         self.element = element

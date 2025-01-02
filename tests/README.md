@@ -1,10 +1,10 @@
 ---
-title: Categoría 1
+title: Repositorio de prueba
 ---
 
-# Categoría 1
+# Repositorio de prueba
 
-Pues no sé de qué va esto
+Este repositorio es para probar actirepo.
 
 ## Contenido
 
@@ -23,15 +23,8 @@ Pues no sé de qué va esto
 ## Subcategorías
 | Nombre              | Descripción                   | Preguntas |
 | ------------------- | ----------------------------- | --------- |
-| [Subcategoría de prueba](subcategory) | Estoy probando las subcategorías. A ver si funcionan bien. | 0 |
+| [Categoría 1](category) | Pues no sé de qué va esto | 33 |
 
 
 
-
-
-## Actividades
-| Nombre              | Descripción                   | Dificultad | Preguntas |
-| ------------------- | ----------------------------- | ---------- | --------- |
-| [Sample1](sample1) | Test para probar el funcionamiento del organizador de actividades incluyendo activity.json | ![Dificultad](https://img.shields.io/badge/Alta-red) | 22 |
-| [Sample2](sample2) |  | ![Dificultad](https://img.shields.io/badge/Desconocida-black) | 11 |
 

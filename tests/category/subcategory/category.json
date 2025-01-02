@@ -1,13 +1,14 @@
 {
-    "name": "Subcategoría",
-    "description": "Esto es una subcategoría.",
+    "name": "Subcategor\u00eda de prueba",
+    "description": "Estoy probando las subcategor\u00edas. A ver si funcionan bien.",
     "category": [
         "Tests",
-        "Categoría"
+        "Categor\u00eda"
     ],
     "tags": [
         "redes",
         "cables",
-        "internet"
+        "tortillas",
+        "papas"
     ]
 }

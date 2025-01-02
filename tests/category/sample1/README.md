@@ -1,13 +1,11 @@
 ---
-title: sample1
+title: Sample1
 author: John Doe (jdoe@nasa.com)
 ---
 
-# sample1
-
+# Sample1
 
 ![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)
-
 
 Test para probar el funcionamiento del organizador de actividades incluyendo activity.json
 

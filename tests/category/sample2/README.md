@@ -1,12 +1,10 @@
 ---
-title: sample2
+title: Sample2
 ---
 
-# sample2
+# Sample2
 
-
-![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)
-
+![Dificultad](https://img.shields.io/badge/Dificultad-Desconocida-black)
 
 
 
@@ -33,52 +31,52 @@ Ficheros de preguntas disponibles en esta actividad:
 #### Arrastrar y soltar imagen o texto
 
 
-![arrastrar-y-soltar-sobre-una-imagen_1.png](images/arrastrar-y-soltar-sobre-una-imagen_1.png)
+![arrastrar y soltar sobre una imagen](images/questions/arrastrar-y-soltar-sobre-una-imagen_1.png)
 
 
 
 #### Arrastrar y soltar marcador
 
 
-![arrastrar-y-soltar-marcadores_1.png](images/arrastrar-y-soltar-marcadores_1.png)
+![arrastrar y soltar marcadores](images/questions/arrastrar-y-soltar-marcadores_1.png)
 
 
 
 #### Ensayo
 
 
-![ensayo-adjunto-y-texto_1.png](images/ensayo-adjunto-y-texto_1.png)
+![ensayo - adjunto y texto](images/questions/ensayo-adjunto-y-texto_1.png)
 
-![ensayo-fichero-adjunto_1.png](images/ensayo-fichero-adjunto_1.png)
+![ensayo - fichero adjunto](images/questions/ensayo-fichero-adjunto_1.png)
 
-![ensayo-texto_1.png](images/ensayo-texto_1.png)
+![ensayo - texto](images/questions/ensayo-texto_1.png)
 
 
 
 #### Selección múltiple
 
 
-![opcion-multiple-respuesta-multiple_1.png](images/opcion-multiple-respuesta-multiple_1.png)
+![opción múltiple - respuesta múltiple](images/questions/opcion-multiple-respuesta-multiple_1.png)
 
-![opcion-multiple-respuesta-simple_1.png](images/opcion-multiple-respuesta-simple_1.png)
+![opción múltiple - respuesta simple](images/questions/opcion-multiple-respuesta-simple_1.png)
 
 
 
 #### Respuesta corta
 
 
-![respuesta-corta_1.png](images/respuesta-corta_1.png)
+![respuesta corta](images/questions/respuesta-corta_1.png)
 
 
 
 #### Verdadero/Falso
 
 
-![verdaderofalso_1.png](images/verdaderofalso_1.png)
+![verdadero/falso](images/questions/verdaderofalso_1.png)
 
-![verdaderofalso-con-imagen-adjunta_1.png](images/verdaderofalso-con-imagen-adjunta_1.png)
+![verdadero/falso con imagen adjunta](images/questions/verdaderofalso-con-imagen-adjunta_1.png)
 
-![verdaderofalso-con-imagen-embebida_1.png](images/verdaderofalso-con-imagen-embebida_1.png)
+![verdadero/falso con imagen embebida](images/questions/verdaderofalso-con-imagen-embebida_1.png)
 
 
 

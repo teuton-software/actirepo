@@ -14,14 +14,17 @@ import shutil
 from jinja2 import Environment, FileSystemLoader
 from pprint import pprint
 
-from actirepo.__init__ import __icons_url__
-from actirepo.utils.file_utils import is_newer_than, anchorify, path_to_capitalized_list
-from actirepo.utils.console import title, input_string, input_list
-from actirepo.artifact import Artifact
-from actirepo.moodle.quiz import Quiz
-from actirepo.moodle.stats import Stats
+from .__init__ import __icons_url__
+from .utils.file_utils import is_newer_than, anchorify, path_to_capitalized_list
+from .utils.console import title, input_string, input_list
+from .artifact import Artifact
+from .moodle.quiz import Quiz
+from .moodle.stats import Stats
 
 class Activity(Artifact):
+    """
+    Activity class: represents an activity
+    """
 
     # default limit
     LIMIT = 9999
@@ -36,7 +39,7 @@ class Activity(Artifact):
     DIFFICULTIES = [ 'easy', 'medium', 'hard' ]
 
     def __init__(self, path):
-        super().__init__(path, self.METADATA_FILE)
+        super().__init__("activity", path, self.METADATA_FILE)
         self.quizzes = self.__get_quizzes()
 
     def __get_quizzes(self):
@@ -80,13 +83,6 @@ class Activity(Artifact):
         self.metadata['full_stats'] = self.get_stats()
         return self.metadata
     
-    def save(self):
-        """
-        Save activity descriptor
-        """
-        with open(self.descriptor, 'w', encoding='utf-8') as outfile:
-            json.dump(self.metadata, outfile, indent=4)
-
     def find_quizzes(self):
         """
         List quizzes in activity
@@ -141,10 +137,10 @@ class Activity(Artifact):
         """
         # avoid creating README.md if it is not necessary
         if not force and not self.is_upgradable():
-            print(f'Ignorando actividad "{self.path}". README.md es más reciente que {Activity.METADATA_FILE} y/o alguno de los archivos de preguntas {self.quizzes}')
+            print(f'Skipping activity "{self.path}". README.md is newer than {Activity.METADATA_FILE} or some quizzes {self.quizzes}')
             return
         # print message
-        title(f'Creando README.md para actividad en {self.path}...')
+        title(f'Creating README.md for activity {self.name} in {self.path}...')
         # generate images
         self.__generate_images()
         # load and render template
@@ -155,7 +151,6 @@ class Activity(Artifact):
         template = env.get_template(self.README_TEMPLATE)
         readme = template.render(activity = self, icons_url = __icons_url__, Quiz = Quiz)
         # write to file
-        print("generando README.md: ", self.readme_file)
         with open(self.readme_file, 'w', encoding='utf-8') as outfile:
             outfile.write(readme)
 
@@ -193,24 +188,24 @@ class Activity(Artifact):
         descriptor = os.path.join(path, Activity.METADATA_FILE)
         # check if activity descriptor exists and force is false
         if os.path.isfile(descriptor) and not force:
-            raise Exception(f'{path} ya es una actividad. Use --force para sobreescribir')
+            raise Exception(f'{path} is already an activity. Use --force to overwrite')
         # if there is activity descriptor, loads it
         default_metadata = Activity(path).metadata
         # check if there are xml files
         if not Activity.has_quiz_files(path):
-            raise Exception(f'No hay archivos de preguntas en {path}')
+            raise Exception(f'There is no quizzes in {path}. It cannot be an activity')
         # create activity descriptor
         activity = {
-            'name': input_string('Nombre', default_metadata['name']),
-            'description': input_string('Descripción', default_metadata['description']),
-            'category': input_list('Categoría', default_metadata['category']),
-            'difficulty': input_string(f'Dificultad {Activity.DIFFICULTIES}', default_metadata['difficulty']),
+            'name': input_string('Name', default_metadata['name']),
+            'description': input_string('Description', default_metadata['description']),
+            'category': input_list('Category', default_metadata['category']),
+            'difficulty': input_string(f'Difficulty {Activity.DIFFICULTIES}', default_metadata['difficulty']),
             'tags': input_list('Tags', default_metadata['tags']),
             'author': {
-                'name': input_string('Autor name', default_metadata['author']['name'] if default_metadata['author'] else os.environ.get('USER', os.environ.get('USERNAME'))),
-                'email': input_string('Autor email', default_metadata['author']['email'] if default_metadata['author'] else '')
+                'name': input_string('Author name', default_metadata['author']['name'] if default_metadata['author'] else os.environ.get('USER', os.environ.get('USERNAME'))),
+                'email': input_string('Author email', default_metadata['author']['email'] if default_metadata['author'] else '')
             },
-            'limit': input_string('Límite de preguntas de cada tipo a mostrar en el README', default_metadata['limit'])
+            'limit': input_string('Limit of questions of each type to display in the README', default_metadata['limit'])
         }
         # write activity descriptor to json file
         with open(descriptor, 'w', encoding='utf-8') as outfile:

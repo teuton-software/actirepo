@@ -1,34 +1,32 @@
 ---
-title: {{ metadata.name }}
-author: {{ metadata.author.name }} ({{ metadata.author.email }})
+title: {{ category.metadata.name }}
 ---
 
-# {{ metadata.name }}
+# {{ category.metadata.name }}
 
-{% if metadata.difficulty == 'hard' %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)
-{% elif metadata.difficulty == 'medium' %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Media-yellow)
-{% else %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Baja-green)
-{% endif %}
-
-{{ metadata.description }}
+{{ category.metadata.description }}
 
 ## Contenido
 
-Preguntas disponibles en esta actividad:
-
+{% set stats = category.get_stats() %}
 |   | Tipo              | Cantidad                   |
 | - | ----------------- | -------------------------- |
-{% for type in metadata.stats %}{% set question = metadata.stats[type] %}{% if question.count > 0 %}| ![]({{ question.icon }}) | {{ question.name }} | {{ question.count }} |
-{% endif %}{% endfor %}|   | **TOTAL**         | {{ metadata.total }} |
+{% for type,count in stats.types.items() %}| ![{{ type }}]({{ icons_url }}/{{ type }}.svg) | {{ Quiz.SUPPORTED_QUESTIONS[type]['description'] }} | {{ count }} |
+{% endfor %}|   | **TOTAL**         | {{ stats.total }} |
 
-## Descargas
+{% if category.categories %}
+## Subcategorías
+| Nombre              | Descripción                   | Preguntas |
+| ------------------- | ----------------------------- | --------- |
+{% for subcategory in category.categories %}| [{{ subcategory.metadata.name }}]({{ subcategory.name }}) | {{ subcategory.metadata.description }} | {{ subcategory.metadata.stats.total }} |
+{% endfor %}
+{% endif %}
 
-{% for qu in question_urls %}- [{{ qu.file }}]({{ qu.url }})
-{% endfor%}
 
-## Ejemplos
-
-> renderizar aquí algunas preguntas
+{% if category.activities %}
+## Actividades
+| Nombre              | Descripción                   | Dificultad | Preguntas |
+| ------------------- | ----------------------------- | ---------- | --------- |
+{% for activity in category.activities %}| [{{ activity.metadata.name }}]({{ activity.name }}) | {{ activity.metadata.description }} | {{ activity.metadata.difficulty | difficulty_to_minibadge }} | {{ activity.metadata.full_stats.total }} |
+{% endfor %}
+{% endif %}

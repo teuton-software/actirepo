@@ -1,6 +1,9 @@
 from .question import Question
 
 class ShortAnswer(Question):
+    """
+    Class to manage short answer questions
+    """
 
     def __init__(self, element):
         super().__init__(element)
