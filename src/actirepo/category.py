@@ -14,6 +14,10 @@ from actirepo.moodle.stats import Stats
 
 class Category(Artifact):
 
+    # activity README template
+    README_TEMPLATE = 'README.category.template.md'
+
+    # metadata filename
     METADATA_FILE = 'category.json'
 
     def __init__(self, path):
@@ -110,19 +114,19 @@ class Category(Artifact):
         Create README.md file for category (including all activities in category and subcategories)
         - force: if true, overwrite existing README.md
         """
-        # set readme file
-        readme_file = os.path.join(self.path, 'README.md')
         # print message
         title(f'Creando README.md para categoría en {self.path}...')
         # load and render template
         env = Environment(loader = FileSystemLoader(self.TEMPLATES_PATH, encoding='utf8'))
         env.filters['anchorify'] = anchorify
         env.filters['debug'] = pprint
+        env.filters['difficulty_to_string'] = Activity.difficulty_to_string
+        env.filters['difficulty_to_badge'] = Activity.difficulty_to_badge
         template = env.get_template(self.README_TEMPLATE)
-        readme = template.render(activity = self, icons_url = __icons_url__, download_url = __download_url__, Quiz = Quiz)
+        readme = template.render(category = self, icons_url = __icons_url__, Quiz = Quiz)
         # write to file
-        print("generando README.md: ", readme_file)
-        with open(readme_file, 'w', encoding='utf-8') as outfile:
+        print("generando README.md: ", self.readme_file)
+        with open(self.readme_file, 'w', encoding='utf-8') as outfile:
             outfile.write(readme)
 
     @staticmethod    

@@ -12,15 +12,13 @@ def main():
     #print(quiz.questions)
     #print(quiz.get_stats())
 
-    activity = Activity('tests/category/sample1')
+    #activity = Activity('tests/category/sample1')
     #activity.save()
-    activity.create_readme(True)
+    #activity.create_readme(True)
     #print(activity.get_stats())
 
-    #category = Category('tests/category')
-    #print("activities:", category.activities)
-    #print("categories:", category.categories)
-    #print(category.get_stats())
+    category = Category('tests/category')
+    category.create_readme()
 
     #Category.create('tests/category', False)
 

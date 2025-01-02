@@ -1,19 +1,11 @@
 ---
-title: {{ activity.name }}{% if activity.metadata.author %}
+title: {{ activity.metadata.name }}{% if activity.metadata.author %}
 author: {{ activity.metadata.author.name }} ({{ activity.metadata.author.email }}){% endif %}
 ---
 
-# {{ activity.name }}
-{% set difficulty = activity.metadata.difficulty %}
-{% if difficulty == 'hard' %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)
-{% elif difficulty == 'medium' %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Media-yellow)
-{% elif difficulty == 'easy' %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Baja-green)
-{% else %}
-![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)
-{% endif %}
+# {{ activity.metadata.name }}
+
+{{ activity.metadata.difficulty | difficulty_to_badge }}
 
 {{ activity.metadata.description }}
 

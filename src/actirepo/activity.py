@@ -77,6 +77,7 @@ class Activity(Artifact):
         if not 'limit' in self.metadata: self.metadata['limit'] = Activity.LIMIT
         # if full is true, add questions to activity descriptor
         self.metadata['stats'] = self.__get_stats(self.metadata['files'])
+        self.metadata['full_stats'] = self.get_stats()
         return self.metadata
     
     def save(self):
@@ -150,6 +151,7 @@ class Activity(Artifact):
         env = Environment(loader = FileSystemLoader(self.TEMPLATES_PATH, encoding='utf8'))
         env.filters['anchorify'] = anchorify
         env.filters['debug'] = pprint
+        env.filters['difficulty_to_badge'] = Activity.difficulty_to_badge
         template = env.get_template(self.README_TEMPLATE)
         readme = template.render(activity = self, icons_url = __icons_url__, Quiz = Quiz)
         # write to file
@@ -214,3 +216,32 @@ class Activity(Artifact):
         with open(descriptor, 'w', encoding='utf-8') as outfile:
             json.dump(activity, outfile, indent=4)
 
+    @staticmethod
+    def difficulty_to_string(diff):
+        """
+        Get difficulty levels
+        """
+        if not diff:
+            return 'Sin especificar'
+        if diff == 'easy':
+            return 'Fácil'
+        if diff == 'medium':
+            return 'Medio'
+        if diff == 'hard':
+            return 'Difícil'
+        return 'Desconocido'
+    
+    @staticmethod
+    def difficulty_to_badge(diff):
+        """
+        Get difficulty badge
+        """
+        if not diff:
+            return '![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)'
+        if diff == 'easy':
+            return '![Dificultad](https://img.shields.io/badge/Dificultad-Baja-green)'
+        if diff == 'medium':
+            return '![Dificultad](https://img.shields.io/badge/Dificultad-Media-yellow)'
+        if diff == 'hard':
+            return '![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)'
+        return '![Dificultad](https://img.shields.io/badge/Dificultad-Desconocida-black)'
