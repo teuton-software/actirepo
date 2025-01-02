@@ -26,8 +26,8 @@ class Activity(Artifact):
     Activity class: represents an activity
     """
 
-    # default limit
-    LIMIT = 9999
+    # default limit of questions of each type to display in the README
+    LIMIT = 5
 
     # activity filename
     METADATA_FILE = 'activity.json'
@@ -117,7 +117,9 @@ class Activity(Artifact):
         Check if activity is upgradable
         - returns: True if activity is upgradable, False otherwise
         """
-        activity_files = [ os.path.join(self.path, file) for file in [ Activity.METADATA_FILE ].extend(self.metadata['files']) ]
+        activity_files = [ Activity.METADATA_FILE ]
+        activity_files.extend(self.metadata['files'])
+        activity_files = [ os.path.join(self.path, file) for file in activity_files ]
         return not is_newer_than(self.readme_file, activity_files)
     
     def __generate_images(self):
@@ -127,7 +129,7 @@ class Activity(Artifact):
             shutil.rmtree(images_dir)
         # generate images
         for quiz in self.quizzes:
-            quiz.generate_images(self.metadata['limit'])
+            quiz.generate_images(int(self.metadata['limit']))
 
     # create README.md file for activity (including some questions rendered as images)
     def create_readme(self, force = False):
@@ -179,16 +181,13 @@ class Activity(Artifact):
         return os.path.isdir(path) and (os.path.isfile(descriptor) or Activity.has_quiz_files(path))
 
     @staticmethod    
-    def create(path, force = False):
+    def create(path):
         """
         Create activity descriptor
         - path: path to activity
         - force: if true, overwrite existing activity descriptor
         """
         descriptor = os.path.join(path, Activity.METADATA_FILE)
-        # check if activity descriptor exists and force is false
-        if os.path.isfile(descriptor) and not force:
-            raise Exception(f'{path} is already an activity. Use --force to overwrite')
         # if there is activity descriptor, loads it
         default_metadata = Activity(path).metadata
         # check if there are xml files

@@ -20,7 +20,7 @@ Este repositorio es para probar actirepo.
 |   | **TOTAL**         | 33 |
 
 
-## Subcategorías
+## Categorías
 | Nombre              | Descripción                   | Preguntas |
 | ------------------- | ----------------------------- | --------- |
 | [Categoría 1](category) | Pues no sé de qué va esto | 33 |

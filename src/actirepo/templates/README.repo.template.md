@@ -15,7 +15,7 @@ title: {{ category.metadata.name }}
 {% endfor %}|   | **TOTAL**         | {{ stats.total }} |
 
 {% if category.categories %}
-## Subcategorías
+## Categorías
 | Nombre              | Descripción                   | Preguntas |
 | ------------------- | ----------------------------- | --------- |
 {% for subcategory in category.categories %}| [{{ subcategory.metadata.name }}]({{ subcategory.name }}) | {{ subcategory.metadata.description }} | {{ subcategory.metadata.stats.total }} |

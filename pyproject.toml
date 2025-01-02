@@ -34,5 +34,4 @@ dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
 Homepage = "https://github.com/teuton-software/actirepo"
 
 [project.scripts]
-actirepo = "actirepo.__main__:main"
-test = "cli.__main__:main"
+actirepo = "cli.__main__:main"
