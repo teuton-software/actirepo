@@ -67,7 +67,7 @@ class Category(Artifact):
         # checks if activity descriptor exists
         if os.path.isfile(self.descriptor):
             # read activity descriptor
-            with open(self.descriptor, 'r') as json_file:
+            with open(self.descriptor, 'r', encoding = 'utf-8') as json_file:
                 content = json_file.read()
             # parse activity descriptor
             self.metadata = json.loads(content)
@@ -87,7 +87,7 @@ class Category(Artifact):
         self.activities = self.__find_activities()
         self.categories = self.__find_categories()
         # add stats to activity descriptor if it is not present
-        if not 'stats' in self.metadata: self.metadata['stats'] = self.get_stats()
+        self.metadata['stats'] = self.get_stats()
         return self.metadata
     
     def save(self):
@@ -121,7 +121,7 @@ class Category(Artifact):
         env.filters['anchorify'] = anchorify
         env.filters['debug'] = pprint
         env.filters['difficulty_to_string'] = Activity.difficulty_to_string
-        env.filters['difficulty_to_badge'] = Activity.difficulty_to_badge
+        env.filters['difficulty_to_minibadge'] = Activity.difficulty_to_minibadge
         template = env.get_template(self.README_TEMPLATE)
         readme = template.render(category = self, icons_url = __icons_url__, Quiz = Quiz)
         # write to file

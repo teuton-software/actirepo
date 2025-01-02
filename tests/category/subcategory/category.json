@@ -1,0 +1,13 @@
+{
+    "name": "Subcategoría",
+    "description": "Esto es una subcategoría.",
+    "category": [
+        "Tests",
+        "Categoría"
+    ],
+    "tags": [
+        "redes",
+        "cables",
+        "internet"
+    ]
+}

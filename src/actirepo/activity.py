@@ -55,7 +55,7 @@ class Activity(Artifact):
         # checks if activity descriptor exists
         if os.path.isfile(self.descriptor):
             # read activity descriptor
-            with open(self.descriptor, 'r') as json_file:
+            with open(self.descriptor, 'r', encoding = 'utf-8') as json_file:
                 content = json_file.read()
             # parse activity descriptor
             self.metadata = json.loads(content)
@@ -245,3 +245,18 @@ class Activity(Artifact):
         if diff == 'hard':
             return '![Dificultad](https://img.shields.io/badge/Dificultad-Alta-red)'
         return '![Dificultad](https://img.shields.io/badge/Dificultad-Desconocida-black)'
+
+    @staticmethod
+    def difficulty_to_minibadge(diff):
+        """
+        Get difficulty badge
+        """
+        if not diff:
+            return '![Dificultad](https://img.shields.io/badge/Sin%20especificar-black)'
+        if diff == 'easy':
+            return '![Dificultad](https://img.shields.io/badge/Baja-green)'
+        if diff == 'medium':
+            return '![Dificultad](https://img.shields.io/badge/Media-yellow)'
+        if diff == 'hard':
+            return '![Dificultad](https://img.shields.io/badge/Alta-red)'
+        return '![Dificultad](https://img.shields.io/badge/Desconocida-black)'
