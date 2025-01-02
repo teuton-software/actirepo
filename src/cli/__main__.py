@@ -1,18 +1,28 @@
 import time
+from pprint import pprint
 from actirepo.moodle.quiz import Quiz
 from actirepo.activity import Activity
+from actirepo.category import Category
 
 def main():
     start_time = time.time()
     
-    #quiz = Quiz('tests/sample1/questions.xml')
+    #quiz = Quiz('tests/category/sample1/questions1.xml')
     #print(quiz.generate_images())
     #print(quiz.questions)
     #print(quiz.get_stats())
 
-    activity = Activity('tests/sample1')
+    activity = Activity('tests/category/sample1')
     #activity.save()
-    activity.create_readme(force=True)
+    activity.create_readme(True)
+    #print(activity.get_stats())
+
+    #category = Category('tests/category')
+    #print("activities:", category.activities)
+    #print("categories:", category.categories)
+    #print(category.get_stats())
+
+    #Category.create('tests/category', False)
 
     print(f"Elapsed time: {time.time() - start_time:.2f} s")
 

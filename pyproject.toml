@@ -4,11 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "actirepo"
-version = "0.0.1"
+version = "0.1.0"
 description = "Moodle activities repo organizer"
 readme = "README.md"
 authors = [
-    { name = "fvarrui", email = "francisco.vargas.ruiz@gmail.com" }
+    { name = "fvarrui", email = "fvarrui@canariaseducacion.es" },
+    { name = "noeper", email = "nperpere@canariaseducacion.es" }
 ]
 license = { file = "LICENSE" }
 classifiers = [

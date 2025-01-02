@@ -8,6 +8,16 @@ File utilities.
 import unicodedata
 import re
 import os
+from pathlib import Path
+
+def remove_extension(filename):
+    """
+    Remove extension from filename
+    - filename: filename to remove extension
+    - return: filename without extension
+    """
+    return Path(filename).stem
+
 
 def get_available_filename(path, name):
     """
@@ -24,13 +34,6 @@ def get_available_filename(path, name):
         index += 1
         valid_filename = f'{basename}_{index}.{extension}'
     return valid_filename
-
-def is_newer_than(file1, file2):
-    """
-    Check if file1 is newer than file2
-    Returns True if file1 is a file and file2 is a file and file1 is newer than file2.
-    """
-    return os.path.isfile(file1) and os.path.getmtime(file2) < os.path.getmtime(file1)
 
 def slugify(value, allow_unicode=False):
     """
@@ -57,3 +60,24 @@ def anchorify(value):
     - Also strip leading and trailing whitespace, dashes, and underscores.
     """
     return re.sub(r'[^\w\s-]', '', value.lower()).replace(" ", "-")
+
+def is_newer_than(tested_file, files):
+    """
+    Check if file is newer than all files
+    Returns True if file is newer than all files; False otherwise.
+    """
+    for file in files:
+        if not os.path.isfile(file):
+            continue
+        if os.path.getmtime(tested_file) < os.path.getmtime(file):
+            return False
+    return True
+
+def path_to_capitalized_list(path):
+    """
+    Convert path to a list
+    - path: path to convert
+    - returns: list of parts of the path
+    """
+    parts = path.split(os.sep)
+    return [ part.capitalize() for part in parts[0:len(parts)-1] ]

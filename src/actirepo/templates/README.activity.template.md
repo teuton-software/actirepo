@@ -15,7 +15,7 @@ author: {{ activity.metadata.author.name }} ({{ activity.metadata.author.email }
 ![Dificultad](https://img.shields.io/badge/Dificultad-Sin%20especificar-black)
 {% endif %}
 
-{{ activity.description }}
+{{ activity.metadata.description }}
 
 ## Contenido
 
@@ -35,7 +35,7 @@ Ficheros de preguntas disponibles en esta actividad:
 #### {{ Quiz.SUPPORTED_QUESTIONS[type]['description'] }}
 
 {% for question in questions %}
-![{{ question.image_filename }}](images/{{ question.image_filename }})
+![{{ question.name }}](images/{{ question.image_filename }})
 {% endfor %}
 
 {% endfor %}

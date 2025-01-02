@@ -44,7 +44,7 @@ class Question(ABC):
                     img['src'] = attachment.get('image')
         return html.prettify()
 
-    def render(self, destination_dir, save_html = False):
+    def render(self, destination_dir, prefix = '', save_html = False):
         """
         Render question as image
         - question: question xml element
@@ -52,6 +52,7 @@ class Question(ABC):
         - save_html: also save html to file
         - return: image filename
         """
+
         # create question data
         print(f"generando imagen {self.type} para la pregunta ", self.name)
             
@@ -61,7 +62,8 @@ class Question(ABC):
         html = template.render(question = self, icons_url = __icons_url__)
 
         # html to image
-        self.image_filename = get_available_filename(destination_dir, slugify(self.name) + ".png")
+        self.image_filename = prefix + slugify(self.name) + ".png"
+        self.image_filename = get_available_filename(destination_dir, self.image_filename)
         html2png(html, destination_dir, self.image_filename)
 
         # writes html to file

@@ -1,16 +1,8 @@
-"""
-Quiz 
-- render_question: render question as image
-"""
-
 import os
 import shutil
 import xml.etree.ElementTree as ET
 
-from actirepo.__init__ import __icons_url__, __download_url__
-
-from actirepo.utils.url_utils import normalize
-from actirepo.utils.file_utils import anchorify
+from pathlib import Path
 
 from actirepo.moodle.shortanswer import ShortAnswer
 from actirepo.moodle.multichoice import MultiChoice
@@ -18,10 +10,11 @@ from actirepo.moodle.truefalse import TrueFalse
 from actirepo.moodle.ddimageortext import DDImageOrText
 from actirepo.moodle.ddmarker import DDMarker
 from actirepo.moodle.essay import Essay
+from actirepo.moodle.stats import Stats
 
 class Quiz():
     """
-    Quiz: class to manage quiz files
+    Class to manage quiz files
     """
 
      # supported question types
@@ -64,12 +57,10 @@ class Quiz():
         #}
     }
 
-    # anchorified question types
-    #ANCHORIFIED_SUPPORTED_QUESTIONS = { key : anchorify(value) for key, value in SUPPORTED_QUESTIONS.items() }
-
     def __init__(self, quizfile):
         if not Quiz.is_quiz_file(quizfile):
             raise Exception(f'Error: {quizfile} is not a quiz file')
+        self.name = Path(quizfile).stem
         self.quizfile = quizfile
         self.filename = os.path.basename(quizfile)
         self.path = os.path.dirname(quizfile)
@@ -108,20 +99,20 @@ class Quiz():
         return { type for type in self.questions }
 
     def get_stats(self):
-        return {
-            'types': { type: len(question) for type, question in self.questions.items() },
-            'total': sum([len(question) for question in self.questions.values()])
-        }
+        stats = Stats()
+        stats.types = { type: len(question) for type, question in self.questions.items() } 
+        stats.total = sum([len(question) for question in self.questions.values()]) 
+        return stats
 
-    def generate_images(self, limit=9999, force=True):
+    def generate_images(self, limit=9999):
         """
         Generate images for questions in activity
         - activity: activity descriptor
         - force: if true, overwrite existing images
         """
-        images_dir = os.path.join(self.path, "images")
+        images_dir = os.path.join(self.path, f"images/{self.name}")
         # if images directory exists and force is true, delete it
-        if os.path.isdir(images_dir) and force:
+        if os.path.isdir(images_dir):
             print("Overwriting existing images...")
             shutil.rmtree(images_dir)
         # create images dictionary
@@ -136,13 +127,15 @@ class Quiz():
                 # if image was generated, add it to dictionary
                 if image_file:
                     count += 1
+                    image_file = f"{self.name}/{image_file}"
+                    question.image_filename = image_file
                     # check if question type is in images dictionary, and add it if not
                     if not type in images:
                         images[type] = [ image_file ]
                     else:
                         images[type].append(image_file)
                 if count >= limit:
-                    break        
+                    break
         return images
 
     @staticmethod

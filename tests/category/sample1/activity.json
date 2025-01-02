@@ -1,0 +1,21 @@
+{
+    "name": "Sample1",
+    "description": "Test para probar el funcionamiento del organizador de actividades incluyendo activity.json",
+    "difficulty": "hard",
+    "tags": [
+        "test",
+        "sample",
+        "actirepo",
+        "first"
+    ],
+    "category": [
+        "test",
+        "prueba"
+    ],
+    "author": {
+        "name": "John Doe",
+        "email": "jdoe@nasa.com"
+    },
+    "path": "tests\\sample1",
+    "limit": 9999
+}
