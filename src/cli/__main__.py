@@ -26,7 +26,7 @@ def main():
     #Category.create('tests/category/subcategory')
 
     repo = Repo('tests')
-    repo.create_readme(True)
+    repo.create_readme(False)
 
     #Repo.create('tests')
 

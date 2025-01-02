@@ -13,5 +13,8 @@ with pyproject_path.open("rb") as f:
 
 # init global variables
 __module__ = 'actirepo'
-__version__ = _pyp["project"]["version"]
 __icons_url__ = _cfg["config"]["icons_url"]
+__project_name__ = _pyp["project"]["name"]
+__project_version__ = _pyp["project"]["version"]
+__project_description__ = _pyp["project"]["description"]
+__project_url__ = _pyp["project"]["urls"]["Homepage"]

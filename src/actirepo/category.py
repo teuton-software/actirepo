@@ -4,8 +4,8 @@ import json
 from jinja2 import Environment, FileSystemLoader
 from pprint import pprint
 
-from .__init__ import __icons_url__
-from .utils.file_utils import is_newer_than, anchorify, path_to_capitalized_list
+from .__init__ import __icons_url__, __project_name__, __project_version__, __project_url__
+from .utils.file_utils import anchorify, path_to_capitalized_list
 from .utils.console import title, input_string, input_list
 from .artifact import Artifact
 from .activity import Activity
@@ -125,7 +125,7 @@ class Category(Artifact):
         env.filters['difficulty_to_string'] = Activity.difficulty_to_string
         env.filters['difficulty_to_minibadge'] = Activity.difficulty_to_minibadge
         template = env.get_template(self.README_TEMPLATE)
-        readme = template.render(category = self, icons_url = __icons_url__, Quiz = Quiz)
+        readme = template.render(category = self, Quiz = Quiz, icons_url = __icons_url__, project_name = __project_name__, project_version = __project_version__, project_url = __project_url__)
         # write to file
         with open(self.readme_file, 'w', encoding='utf-8') as outfile:
             outfile.write(readme)

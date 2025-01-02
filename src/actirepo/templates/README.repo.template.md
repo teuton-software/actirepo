@@ -30,3 +30,6 @@ title: {{ category.metadata.name }}
 {% for activity in category.activities %}| [{{ activity.metadata.name }}]({{ activity.name }}) | {{ activity.metadata.description }} | {{ activity.metadata.difficulty | difficulty_to_minibadge }} | {{ activity.metadata.full_stats.total }} |
 {% endfor %}
 {% endif %}
+
+---
+Generated with :heart: by [{{project_name}} v{{ project_version }}]({{project_url}})
