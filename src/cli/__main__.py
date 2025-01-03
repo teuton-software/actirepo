@@ -19,7 +19,7 @@ def main():
                 self._add_item(self._format_usage, args)
 
     # define el parser
-    parser = argparse.ArgumentParser(prog=__module__, description='Organizador de cuestionarios Moodle en formato XML.', epilog='¡Espero que te sea útil!', add_help=False, formatter_class=CustomHelpFormatter)
+    parser = argparse.ArgumentParser(prog=__module__, description=__project_description__, epilog='¡Espero que te sea útil!', add_help=False, formatter_class=CustomHelpFormatter)
 
     # define los comandos (mutuamente excluyentes)
     commands = parser.add_argument_group('Comandos')
