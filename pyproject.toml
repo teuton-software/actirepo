@@ -35,3 +35,6 @@ Homepage = "https://github.com/teuton-software/actirepo"
 
 [project.scripts]
 actirepo = "cli.__main__:main"
+
+[tool.setuptools]
+include-package-data = true
