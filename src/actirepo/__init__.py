@@ -1,9 +1,5 @@
-from importlib import resources
-import tomllib
 from pathlib import Path
-
-# read config from file
-_cfg = tomllib.loads(resources.read_text("actirepo", "config.toml"))
+import tomllib
 
 # read pyproject.toml from the root directory
 root_dir = Path(__file__).resolve().parent.parent.parent
@@ -13,7 +9,7 @@ with pyproject_path.open("rb") as f:
 
 # init global variables
 __module__ = 'actirepo'
-__icons_url__ = _cfg["config"]["icons_url"]
+__icons_url__ = "https://raw.githubusercontent.com/teuton-software/actirepo/master/icons"
 __project_name__ = _pyp["project"]["name"]
 __project_version__ = _pyp["project"]["version"]
 __project_description__ = _pyp["project"]["description"]
