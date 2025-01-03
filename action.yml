@@ -40,7 +40,7 @@ runs:
     # Ejecutar el comando actirepo
     - name: Ejecutar comando actirepo
       run: |
-        actirepo -R ${{ github.workspace }} -r -f
+        actirepo --repository=${{ github.workspace }} --recursive --force
       shell: bash
 
     # Hacer el push de los cambios
