@@ -73,7 +73,7 @@ def main():
                 self._add_item(self._format_usage, args)
 
     # define el parser
-    parser = argparse.ArgumentParser(prog=__module__, description=__project_description__, epilog='¡Espero que te sea útil!', add_help=False, formatter_class=CustomHelpFormatter)
+    parser = argparse.ArgumentParser(prog=__module__, description='Organizador de cuestionarios Moodle en formato XML.', epilog='¡Espero que te sea útil!', add_help=False, formatter_class=CustomHelpFormatter)
 
     # define los comandos (mutuamente excluyentes)
     commands = parser.add_argument_group('Comandos')
@@ -99,6 +99,7 @@ def main():
     # lógica según las opciones
     if args.help:
         parser.print_help()
+        return
 
     elif args.activity:
         if args.create:
@@ -120,30 +121,6 @@ def main():
         elif args.readme:
             repo = Repo(args.repository)
             repo.create_readme(args.recursive)
-    
-    # ============== PRUEBAS ==============
-
-    #quiz = Quiz('tests/category/sample1/questions1.xml')
-    #print(quiz.generate_images())
-    #print(quiz.questions)
-    #print(quiz.get_stats())
-
-    #activity = Activity('tests/category/sample1')
-    #activity.save()
-    #activity.create_readme(True)
-    #print(activity.get_stats())
-
-    #Actitivy.create('tests/category/sample1')
-
-    #category = Category('tests/category')
-    #category.create_readme()
-
-    #Category.create('tests/category/subcategory')
-
-    #repo = Repo('tests')
-    #repo.create_readme(False)
-
-    #Repo.create('tests')
 
     print(f"Elapsed time: {time.time() - start_time:.2f} s")
 
