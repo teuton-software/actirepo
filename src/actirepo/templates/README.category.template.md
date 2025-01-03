@@ -18,7 +18,7 @@ title: {{ category.metadata.name }}
 ## Subcategorías
 | Nombre              | Descripción                   | Preguntas |
 | ------------------- | ----------------------------- | --------- |
-{% for subcategory in category.categories %}| [{{ subcategory.metadata.name }}]({{ subcategory.name }}) | {{ subcategory.metadata.description }} | {{ subcategory.metadata.stats.total }} |
+{% for subcategory in category.categories %}| [{{ subcategory.metadata.name }}]({{ subcategory.name | quote }}) | {{ subcategory.metadata.description }} | {{ subcategory.metadata.stats.total }} |
 {% endfor %}
 {% endif %}
 
@@ -27,6 +27,6 @@ title: {{ category.metadata.name }}
 ## Actividades
 | Nombre              | Descripción                   | Dificultad | Preguntas |
 | ------------------- | ----------------------------- | ---------- | --------- |
-{% for activity in category.activities %}| [{{ activity.metadata.name }}]({{ activity.name }}) | {{ activity.metadata.description }} | {{ activity.metadata.difficulty | difficulty_to_minibadge }} | {{ activity.metadata.full_stats.total }} |
+{% for activity in category.activities %}| [{{ activity.metadata.name }}]({{ activity.name | quote }}) | {{ activity.metadata.description }} | {{ activity.metadata.difficulty | difficulty_to_minibadge }} | {{ activity.metadata.full_stats.total }} |
 {% endfor %}
 {% endif %}

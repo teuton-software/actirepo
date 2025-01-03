@@ -13,6 +13,7 @@ import shutil
 
 from jinja2 import Environment, FileSystemLoader
 from pprint import pprint
+from urllib.parse import quote
 
 from .__init__ import __icons_url__
 from .utils.file_utils import is_newer_than, anchorify, path_to_capitalized_list
@@ -150,6 +151,7 @@ class Activity(Artifact):
         env.filters['anchorify'] = anchorify
         env.filters['debug'] = pprint
         env.filters['difficulty_to_badge'] = Activity.difficulty_to_badge
+        env.filters['quote'] = quote
         template = env.get_template(self.README_TEMPLATE)
         readme = template.render(activity = self, icons_url = __icons_url__, Quiz = Quiz)
         # write to file

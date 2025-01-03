@@ -1,67 +1,13 @@
 import time
-from pprint import pprint
-from actirepo.moodle.quiz import Quiz
+import argparse
+
 from actirepo.activity import Activity
 from actirepo.category import Category
 from actirepo.repo import Repo
 
-#!/usr/bin/env python3
-
-import os
-import argparse
-import sys
-import traceback
-import tabulate
-
-import actirepo.activity as activity
-import actirepo.repo as repo
-
 from actirepo.__init__ import __module__, __project_name__, __project_version__, __project_description__
-from actirepo.utils.dict_utils import trim_all_keys
 
-def list_activities(directory="."):
-    activities = repo.list_activities(directory)
-    print(f'Listando actividades en "{directory}"')
-    if not activities:
-        print("No hay actividades")
-        return
-    activities = trim_all_keys(activities, ['name', 'description', 'category', 'path', 'total'])
-    headers = [ 'Nombre', 'Descripción', 'Categoría', 'Directorio', 'Preguntas' ]
-    rows =  [x.values() for x in activities]
-    print(tabulate.tabulate(rows, headers, tablefmt='grid', maxcolwidths=50))
-    print(f'Total: {len(activities)} actividad(es) encontrada(s)')
-
-def create_activity(directory=".", force = False):
-    print(f'Creando el descriptor de la actividad "{activity.ACTIVITY_FILE}" en el directorio "{directory}"...')
-    try:
-        activity.create_activity(directory, force)
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
-
-def create_readmes(directory, recursive, force):
-    try:
-        repo.create_readmes(directory, recursive, force)
-    except Exception as e:
-        traceback.print_exc(e)
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
-        
-def create_images(questions_file, html):
-    try:
-        activity.create_images(questions_file, html)
-    except Exception as e:
-        traceback.print_exc(e)
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
-
-def create_repo(directory=".", force = False):
-    try:
-        repo.create_repo(directory, force)
-    except Exception as e:
-        traceback.print_exc(e)
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
+from urllib.parse import quote
 
 def main():
 
@@ -98,6 +44,7 @@ def main():
 
     # lógica según las opciones
     if args.help:
+        print(quote('hola qué/tal.html'))
         parser.print_help()
         return
 

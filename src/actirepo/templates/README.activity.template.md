@@ -15,7 +15,7 @@ Ficheros de preguntas disponibles en esta actividad:
 
 {% for quiz in activity.quizzes %}
 
-### [{{quiz.filename}}]({{ quiz.filename }})
+### [{{quiz.filename}}]({{ quiz.filename | quote }})
 
 {% set stats = quiz.get_stats() %}
 |   | Tipo              | Cantidad                   |
@@ -26,8 +26,8 @@ Ficheros de preguntas disponibles en esta actividad:
 {% for type,questions in quiz.questions.items() %}
 #### {{ Quiz.SUPPORTED_QUESTIONS[type]['description'] }}
 
-{% for question in questions %}
-![{{ question.name }}](images/{{ question.image_filename }})
+{% for question in questions[:activity.metadata.limit] %}
+![{{ question.name }}](images/{{ question.image_filename | quote }})
 {% endfor %}
 
 {% endfor %}

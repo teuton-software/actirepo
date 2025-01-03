@@ -3,6 +3,7 @@ import json
 
 from jinja2 import Environment, FileSystemLoader
 from pprint import pprint
+from urllib.parse import quote
 
 from .__init__ import __icons_url__, __project_name__, __project_version__, __project_url__
 from .utils.file_utils import anchorify, path_to_capitalized_list
@@ -124,6 +125,7 @@ class Category(Artifact):
         env.filters['debug'] = pprint
         env.filters['difficulty_to_string'] = Activity.difficulty_to_string
         env.filters['difficulty_to_minibadge'] = Activity.difficulty_to_minibadge
+        env.filters['quote'] = quote
         template = env.get_template(self.README_TEMPLATE)
         readme = template.render(category = self, Quiz = Quiz, icons_url = __icons_url__, project_name = __project_name__, project_version = __project_version__, project_url = __project_url__)
         # write to file
