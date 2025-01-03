@@ -7,8 +7,6 @@ from actirepo.repo import Repo
 
 from actirepo.__init__ import __module__, __project_name__, __project_version__, __project_description__
 
-from urllib.parse import quote
-
 def main():
 
     # declara un HelpFormatter personalizado para reemplazar el texto 'usage:' por 'Uso:'
@@ -44,7 +42,6 @@ def main():
 
     # lógica según las opciones
     if args.help:
-        print(quote('hola qué/tal.html'))
         parser.print_help()
         return
 
