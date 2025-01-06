@@ -55,4 +55,4 @@ runs:
         git push origin ${{ inputs.branch }}
       shell: bash
       env: 
-        GH_TOKEN: ${{ inputs.token }}
+        GITHUB_TOKEN: ${{ inputs.token }}
