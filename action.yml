@@ -1,13 +1,17 @@
-name: "Actirepo Automation"
+name: "actirepo automation"
 description: "Ejecuta actirepo para actualizar los ficheros README.md del repositorio de actividades"
 inputs:
   branch:
-    description: "Branch en el que se hará el push"
+    description: "Branch sobre el que se va a trabajar"
     required: false
     default: "main"
   token:
     description: "Token de GitHub"
-    required: true    
+    required: true
+  force:
+    description: "Forzar la actualización de los ficheros README.md"
+    required: false
+    default: "--force"
 
 runs:
   using: "composite"
@@ -37,7 +41,7 @@ runs:
     # Ejecutar el comando actirepo
     - name: Ejecutar comando actirepo
       run: |
-        actirepo --repository "${{ github.workspace }}" --readme --recursive --force
+        actirepo --repository "${{ github.workspace }}" --readme --recursive ${{ inputs.force }}
       shell: bash
 
     # Crear un pull request con los cambios
