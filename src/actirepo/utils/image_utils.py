@@ -18,7 +18,13 @@ def html2png(html, destination_dir, img_file):
     - destination_dir: destination directory
     - img_file: image file name
     """
-    hti = Html2Image()
+    hti = Html2Image(
+        custom_flags=[
+            "--no-sandbox",             # optional, useful in CI/CD environments
+            "--disable-gpu",            # optional, avoid using GPU
+            "--disable-dev-shm-usage"   # optional, useful in container environments
+        ]
+    )
     hti.output_path = destination_dir
     with open(os.devnull, 'w') as devnull, contextlib.redirect_stdout(devnull):
         img_file = hti.screenshot(html_str=html, save_as=img_file)[0]
