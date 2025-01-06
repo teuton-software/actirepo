@@ -40,15 +40,9 @@ runs:
         actirepo --repository "${{ github.workspace }}" --readme --recursive --force
       shell: bash
 
-    # Hacer el push de los cambios
-    - name: Hacer push de los cambios
+    # Crear un pull request con los cambios
+    - name: Crear un PR con los cambios
       run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "action@github.com"
-        cd ${{ github.workspace }}
-        git add .
-        git commit -m "automated changes by actirepo"
-        git push origin ${{ inputs.branch }}
-      shell: bash
+        gh pr create -B ${{ inputs.branch }} -H ${{ inputs.branch }} --title 'READMEs generados por actirepo' --body 'Created by actirepo GitHub Action'
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
