@@ -47,8 +47,8 @@ runs:
     # Commit de los cambios
     - name: Commit de los cambios
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "actirepo[bot]"
+        git config --global user.email "actirepo[bot]@users.noreply.github.com"
         cd ${{ github.workspace }}
         git add .
         git commit -m "automated changes by actirepo"
