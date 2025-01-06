@@ -44,15 +44,12 @@ runs:
         actirepo --repository "${{ github.workspace }}" --readme --recursive ${{ inputs.force }}
       shell: bash
 
-    # Setup Git
-    - name: Setup Git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
     # Commit de los cambios
     - name: Commit de los cambios
       run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        cd ${{ github.workspace }}
         git add .
         git commit -m "automated changes by actirepo"
         git push origin ${{ inputs.branch }}
