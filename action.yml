@@ -46,4 +46,4 @@ runs:
         gh pr create -B ${{ inputs.branch }} -H ${{ inputs.branch }} --title 'READMEs generados por actirepo' --body 'Created by actirepo GitHub Action'
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.token }}
+        GH_TOKEN: ${{ inputs.token }}
