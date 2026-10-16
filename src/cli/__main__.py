@@ -4,6 +4,7 @@ import argparse
 from actirepo.activity import Activity
 from actirepo.category import Category
 from actirepo.repo import Repo
+from actirepo.utils import image_utils
 
 from actirepo.__init__ import __module__, __project_name__, __project_version__, __project_description__
 
@@ -34,11 +35,15 @@ def main():
     options.add_argument('--readme', action='store_true', help='Crea el archivo README.md')
     options.add_argument('-r', '--recursive', action='store_true', help='Se aplica el comando de forma recursiva. Se puede combinar con --readme')
     options.add_argument('-f', '--force', action='store_true', help='Forzar la creación de README.md aunque no sea necesario. Se puede combinar con --readme')
+    options.add_argument('--no-sandbox', action='store_true', help='Ejecuta Chrome sin sandbox al generar las imágenes (necesario en algunos entornos CI/Docker)')
 
     # parsea los argumentos
     args = parser.parse_args()
 
     start_time = time.time()
+
+    # configura cómo se lanza Chrome para renderizar las preguntas
+    image_utils.configure(no_sandbox=args.no_sandbox)
 
     # lógica según las opciones
     if args.help:
