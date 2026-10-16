@@ -35,7 +35,7 @@ runs:
     # Instalar el módulo desde el repositorio
     - name: Instalar actirepo
       run: |
-        pip install git+https://github.com/noeper/actirepo.git
+        pip install git+https://github.com/teuton-software/actirepo.git
       shell: bash
 
     # Ejecutar el comando actirepo
