@@ -143,7 +143,7 @@ pip install git+https://github.com/teuton-software/actirepo.git#egg=actirepo
 
 ```bash
 $ actirepo --help
-Uso: actirepo (-h | -v | -A [RUTA] | -C [RUTA] | -R [RUTA]) [--create] [--readme] [-r] [-f]
+Uso: actirepo (-h | -v | -A [RUTA] | -C [RUTA] | -R [RUTA]) [--create] [--readme] [-r] [-f] [--no-sandbox]
 
 Organizador de cuestionarios Moodle en formato XML.
 
@@ -167,6 +167,8 @@ Opciones:
   -r, --recursive       Se aplica el comando de forma recursiva. Se puede combinar con --readme
   -f, --force           Forzar la creación de README.md aunque no sea necesario. Se puede combinar
                         con --readme
+  --no-sandbox          Ejecuta Chrome sin sandbox al generar las imágenes (necesario en algunos
+                        entornos CI/Docker)
 
 ¡Espero que te sea útil!
 ```

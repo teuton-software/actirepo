@@ -11,6 +11,20 @@ import base64
 from html2image import Html2Image
 from PIL import Image
 
+# flags used to launch Chrome (custom_flags replaces html2image defaults, so they are included here)
+CHROME_FLAGS = [
+    "--hide-scrollbars",
+    "--default-background-color=00000000"
+]
+
+def configure(no_sandbox = False):
+    """
+    Configure how Chrome is launched to render html
+    - no_sandbox: if true, launch Chrome without sandbox (needed in some CI/Docker environments)
+    """
+    if no_sandbox and "--no-sandbox" not in CHROME_FLAGS:
+        CHROME_FLAGS.append("--no-sandbox")
+
 def html2png(html, destination_dir, img_file):
     """
     Render html to png image
@@ -18,13 +32,7 @@ def html2png(html, destination_dir, img_file):
     - destination_dir: destination directory
     - img_file: image file name
     """
-    hti = Html2Image(
-    custom_flags=[
-        "--no-sandbox",
-        "--hide-scrollbars",
-        "--default-background-color=00000000"
-    ]
-)
+    hti = Html2Image(custom_flags=CHROME_FLAGS)
     hti.output_path = destination_dir
     with open(os.devnull, 'w') as devnull, contextlib.redirect_stdout(devnull):
         img_file = hti.screenshot(html_str=html, save_as=img_file)[0]

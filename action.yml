@@ -12,6 +12,10 @@ inputs:
     description: "Forzar la actualización de los ficheros README.md"
     required: false
     default: "--force"
+  sandbox:
+    description: "Opciones de sandbox de Chrome al generar las imágenes (por defecto sin sandbox, necesario en los runners de Ubuntu)"
+    required: false
+    default: "--no-sandbox"
 
 runs:
   using: "composite"
@@ -41,7 +45,7 @@ runs:
     # Ejecutar el comando actirepo
     - name: Ejecutar comando actirepo
       run: |
-        actirepo --repository "${{ github.workspace }}" --readme --recursive ${{ inputs.force }}
+        actirepo --repository "${{ github.workspace }}" --readme --recursive ${{ inputs.force }} ${{ inputs.sandbox }}
       shell: bash
 
     # Commit de los cambios
